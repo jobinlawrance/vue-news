@@ -8,7 +8,9 @@ Scripts:
 
 `npm run build` - will build your project into the /dist folder
 
-Setup: run `npm install`
+Setup: run `yarn install`  
+
+Install Typing: `typings install`   
 
 Enjoy!
 
