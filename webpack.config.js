@@ -40,6 +40,12 @@ module.exports = {
     // make TS' generated code cooperate with vue-loader
     esModule: true
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery"
+    })
+  ],
   performance: {
     hints: false
   },
