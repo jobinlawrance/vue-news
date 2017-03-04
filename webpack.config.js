@@ -10,31 +10,35 @@ module.exports = {
   },
   // resolve TypeScript and Vue file
   resolve: {
-    extensions: ['.ts', '.vue', '.js'],
+    extensions: ['','ts', '.vue', '.js'],
     alias: {
       'vue$': 'vue/dist/vue.common.js' // 'vue/dist/vue.common.js' for webpack 1
     }
   },
 
   module: {
-    rules: [
-      {
-        test: /\.vue$/,
-        loader: 'vue-loader',
-        options: {
-          loaders: { js: 'ts-loader', },
-          esModule: true
-        }
-      },
-      {
-        test: /\.ts$/,
-        loader: 'ts-loader',
-        options: {
-          appendTsSuffixTo: [/\.vue$/],
-          transpileOnly: true
-        }
-      }
-    ],
+     loaders: [
+          { test: /\.vue$/, loader: 'vue' },
+          { test: /\.ts$/, loader: 'vue-ts' },
+          { test: /\.less$/, loader: "vue-style-loader!css-loader!less-loader" },
+          { test: /(jpg|png)$/, loader: "file-loader?name=[name].[ext]?[hash]" },
+
+          { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" },
+          { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" }, 
+          { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" },
+          { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file" },
+          { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml" }
+      ],
+  },
+  vue: {
+    // instruct vue-loader to load TypeScript
+    loaders: { 
+      js: 'vue-ts-loader', 
+      less: 'css!less',
+      ts: 'vue-ts-loader'
+    },
+    // make TS' generated code cooperate with vue-loader
+    esModule: true
   },
   performance: {
     hints: false
