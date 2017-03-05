@@ -1,6 +1,6 @@
 {
-  "name": "vue-todo",
-  "description": "vue-todo",
+  "name": "vue-news",
+  "description": "A demo vue js with Typescript",
   "author": "Jobin Lawrance <jobinlawrance@gmail.com>",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --inline --hot --host 0.0.0.0",
