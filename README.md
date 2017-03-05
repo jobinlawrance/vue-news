@@ -1,6 +1,6 @@
-# vue-todo
+# vue-news
 
-AV-ts project
+Vue Js application using TypeScipt to show news
 
 Scripts:
 
