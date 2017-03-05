@@ -1,20 +1,16 @@
 <template>
 <div id="app">
-  <h1 @click="hello">
-    {{name}} is the best girl!
-  </h1>
-  <h2>Essential Links</h2>
-  <ul>
-    <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-    <li><a href="https://github.com/HerringtonDarkholme/av-ts" target="_blank">av-ts docs</a></li>
-  </ul>
+  <SourceSelection></SourceSelection>
 </div>
 </template>
 
 <script>
 import { Vue, Component } from 'av-ts'
+import SourceSelection from './components/sourceselection.vue'
 
-@Component
+@Component({
+  components: {SourceSelection}
+})
 class App extends Vue {
   name = 'Rem'
 
@@ -28,12 +24,12 @@ export default App
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'Roboto';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin: 2% 2% 2% 2%;
 }
 h1, h2 {
   font-weight: normal;
