@@ -20,6 +20,7 @@ module.exports = {
      loaders: [
           { test: /\.vue$/, loader: 'vue' },
           { test: /\.ts$/, loader: 'vue-ts' },
+          {test: /\.css$/,loader: 'vue-style-loader!css-loader'},
           { test: /\.less$/, loader: "vue-style-loader!css-loader!less-loader" },
           { test: /(jpg|png)$/, loader: "file-loader?name=[name].[ext]?[hash]" },
 
