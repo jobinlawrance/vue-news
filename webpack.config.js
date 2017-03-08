@@ -1,11 +1,17 @@
 var path = require('path')
 var webpack = require('webpack')
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
+
+var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 
 module.exports = {
   entry: './src/app.ts',
   output: {
     path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist/',
+    publicPath: process.env.NODE_ENV === 'production'
+      ? '/'
+      : 'dist/',
     filename: 'build.js'
   },
   // resolve TypeScript and Vue file
@@ -72,5 +78,44 @@ if (process.env.NODE_ENV === 'production') {
         warnings: false
       }
     }),
+     new HtmlWebpackPlugin({
+      template: 'index.html',
+      inject: true,
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeAttributeQuotes: true
+        // more options:
+        // https://github.com/kangax/html-minifier#options-quick-reference
+      }
+      // necessary to consistently work with multiple chunks via CommonsChunkPlugin
+      // chunksSortMode: 'dependency'
+    })
+  ])
+}
+
+if (process.env.NODE_ENV === 'development') {
+  
+  module.exports.plugins = (module.exports.plugins || []).concat([
+    // https://github.com/glenjamin/webpack-hot-middleware#installation--usage
+    // OccurenceOrderPlugin is needed for webpack 1.x only
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
+  
+    new HtmlWebpackPlugin({
+      template: 'index.html',
+      inject: true,
+      // minify: {
+      //   removeComments: true,
+      //   collapseWhitespace: true,
+      //   removeAttributeQuotes: true
+      //   // more options:
+      //   // https://github.com/kangax/html-minifier#options-quick-reference
+      // }
+      // // necessary to consistently work with multiple chunks via CommonsChunkPlugin
+      // // chunksSortMode: 'dependency'
+    }),
+    new FriendlyErrorsPlugin()
   ])
 }
