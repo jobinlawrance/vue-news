@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "node dev-server.js",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
-    "deploy": "gh-pages -d dist"
+    "deploy": "npm run build && gh-pages -d dist"
   },
   "dependencies": {
     "admin-lte": "^2.3.8",
