@@ -3,6 +3,7 @@ node_js:
     - "6.1"
 install:
     - npm install
+    - npm install typings -g
     - typings install
 script: 
     - npm run deploy
