@@ -1,21 +1,33 @@
 <template>
 <div id="app">
-  <SourceSelection></SourceSelection>
+  <SourceSelection v-on:sourceChanged="sourceChanged"></SourceSelection>
 </div>
 </template>
 
 <script>
-import { Vue, Component } from 'av-ts'
+import { Vue, Component, Data } from 'av-ts'
 import SourceSelection from './components/sourceselection.vue'
 
 @Component({
-  components: {SourceSelection}
+  components: {SourceSelection} 
 })
 class App extends Vue {
-  name = 'Rem'
 
-  hello() {
-    alert(this.name + ' is the best girl!')
+  sourceId:string;
+
+  @Data
+  data(){
+    return {
+      sourceId:''
+    }
+  }
+  
+  // This function is called when SourceSelection component emits event named sourceChanged.
+  sourceChanged(sourceId:string) {
+
+    console.log(sourceId)
+    this.sourceId = sourceId
+  
   }
 }
 
