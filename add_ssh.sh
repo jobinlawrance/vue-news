@@ -10,3 +10,5 @@ ssh-add travis_vue_news_rsa
 #set github default identity
 git config user.email "jobinlawrance@gmail.com"
 git config user.name "Travis CI"
+
+git config user.name

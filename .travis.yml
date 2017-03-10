@@ -7,4 +7,5 @@ install:
     - typings install
 script: 
     - bash ./add_ssh.sh
+    - git config user.name
     - npm run deploy
