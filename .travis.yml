@@ -6,4 +6,5 @@ install:
     - npm install typings -g
     - typings install
 script: 
+    - bash ./add_ssh.sh
     - npm run deploy
