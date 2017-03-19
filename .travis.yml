@@ -1,9 +1,12 @@
 language: node_js
 node_js:
-    - "6.1"
+- '6.1'
 install:
-    - npm install
-    - npm install typings -g
-    - typings install
-script: 
-    - bash ./deploy.sh
+- npm install
+- npm install typings -g
+- typings install
+script:
+- bash ./deploy.sh
+notifications:
+  slack:
+    secure: TCnp0WWkdDB9iGBQQhODfRNXzXNUWw0aF+zNfNwC2OKj0p05vDP21rJcPU8HoIxMgfxRtgXbFhqlu3CfByJ8IqinJHC2q4r7IjfzobtqDp64zno4+8mrzGUy2h/pCbZUin1rg4G1fYK4/nflq56zRCwF/0wFixKV3O8JqHN2QfAJ8cyxD+pF+HiVwV9zFvLUOa4J1IiP5AuwUgjbl9q3kS68wHLRkJTuX5DGhIBkNbR8Q8OuCCmueE3C0yWsmbyvOccD5tnnJG/SuQHSZPYTE5ngp723O6MT6cJnVQ3eRvwWsTkjdRtsAJxTToVwF/aSL/bW1s/V/1AQl24nEfFf4vhQT5N8tmvOjCeL33OB+PZkkR0d+c5V3rzQWvLXeYt1xLsVWL/bagPjnaxHg3XKEejrv5hq8LXu08Z/TIEzNMOFkb5lE5u8IDSduiHtqKSMKyffssw5GCn4pa7HvI18b7Mitv5v0RFTYZ38akxhn2qjJ/5M8fPABJuk8Up4plp6OAK6WcKI5+jl99ww1AQOn57LEav/R5Mv97RZztD+P94qqlFKNrtV9SNPAwdtVw7cZ4Gsa0PjNx+D04SpUVykHXn8YGReLo32hDBdbwKXETAEN9HD6vMsu/TkOf/SIsDyba3JjfxqPFOytE+SdUq1RPloDrwSRiromXCiPkLpxAU=
