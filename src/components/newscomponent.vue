@@ -4,7 +4,7 @@
       <div class="columns" v-for="n in Math.floor(articleSize/2)">
         <div class="column is-half" v-for="article in getGroupedArticles(n)">
           <div class="card">
-        <div class="card-image">
+        <div class="card-image" v-if="article.urlToImage">
           <figure class="image is-16by9">
             <img v-bind:src="article.urlToImage" alt="Image">
           </figure>
