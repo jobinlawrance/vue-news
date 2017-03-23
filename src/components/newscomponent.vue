@@ -41,8 +41,6 @@
 
     articles: NewsArticleViewModel[]
     articleSize: number
-    
-    groupedArticles: NewsArticleViewModel[]
 
     @Prop
     source = p({
@@ -52,24 +50,18 @@
     @Data data() {
       return {
         articles: [],
-        articleSize: 0,
-        groupedArticles: []
+        articleSize: 0
       }
     }
 
     getGroupedArticles(n:number) :NewsArticleViewModel[]{
       
-      //clear existing values
-      this.groupedArticles.splice(0,this.groupedArticles.length)
-      
       //return articles grouped into 2 since each of our columns have 2 
-      this.groupedArticles.push(this.articles[(n*2)-2])
       if((n*2)-1 <= this.articleSize) {
-        this.groupedArticles.push(this.articles[(n*2)-1])
+        return [this.articles[(n*2)-2],this.articles[(n*2)-1]]
+      } else {
+        return [this.articles[(n*2)-2]]
       }
-
-
-      return this.groupedArticles
     }
 
     updateSource(source: string) {
