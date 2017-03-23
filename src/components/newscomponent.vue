@@ -1,28 +1,33 @@
 <template>
-  <div class="newslist">
-    <md-list>
-      <md-list-item v-for="article in articles" :key="article.url">
-        
-        <md-card class="news-card" md-with-hover>
-          <md-layout md-gutter>
-            <md-layout md-flex="20">
-              <md-card-media>
-                <img v-bind:src="article.urlToImage" alt="Skyscraper">
-              </md-card-media>
-            </md-layout>
-            <md-layout>
-              <md-card-header>
-                <div class="md-title"> {{ article.title }} </div>
-                <div class="md-subhead"> {{ article.author}} </div>
-              </md-card-header>
+  <div class="section">
+    <div class="container">
+      <div class="columns" v-for="n in Math.floor(articleSize/2)">
+        <div class="column is-half" v-for="article in getGroupedArticles(n)">
+          <div class="card">
+        <div class="card-image">
+          <figure class="image is-16by9">
+            <img v-bind:src="article.urlToImage" alt="Image">
+          </figure>
+        </div>
+        <div class="card-content">
+          <div class="media">
+            <div class="media-content">
+              <p class="title is-5">{{ article.title }}</p>
+              <p class="subtitle is-6">{{ article.author }}</p>
+            </div>
+          </div>
 
-              <md-card-content> {{ article.description }}</md-card-content>
-            </md-layout>
-          </md-layout>
-        </md-card>
+          <div class="content">
+            {{ article.description }}
+            <br>
+            <small>11:09 PM - 1 Jan 2016</small>
+          </div>
+        </div>
+      </div>
+        </div>
+      </div>
       
-      </md-list-item>
-    </md-list>
+    </div>
   </div>
 </template>
 
@@ -34,7 +39,10 @@
   @Component
   class NewsComponent extends Vue {
 
-    articles : NewsArticleViewModel[]
+    articles: NewsArticleViewModel[]
+    articleSize: number
+    
+    groupedArticles: NewsArticleViewModel[]
 
     @Prop
     source = p({
@@ -43,8 +51,25 @@
 
     @Data data() {
       return {
-        articles: []
+        articles: [],
+        articleSize: 0,
+        groupedArticles: []
       }
+    }
+
+    getGroupedArticles(n:number) :NewsArticleViewModel[]{
+      
+      //clear existing values
+      this.groupedArticles.splice(0,this.groupedArticles.length)
+      
+      //return articles grouped into 2 since each of our columns have 2 
+      this.groupedArticles.push(this.articles[(n*2)-2])
+      if((n*2)-1 <= this.articleSize) {
+        this.groupedArticles.push(this.articles[(n*2)-1])
+      }
+
+
+      return this.groupedArticles
     }
 
     updateSource(source: string) {
@@ -52,6 +77,8 @@
         .then(
         res => {
           this.articles = res;
+          this.articleSize = this.articles.length
+          console.log("the size of result is "+ this.articleSize)
         }
         ).catch(
         error => console.log(error)
@@ -64,7 +91,7 @@
     }
 
     @Watch('source')
-    handler(newval,oldval) {
+    handler(newval, oldval) {
       this.updateSource(newval)
     }
   }
@@ -74,11 +101,5 @@
 </script>
 
 <style scoped>
-  .newslist {
-    margin-top: 1%
-  }
 
-  .news-card {
-    margin-top: 1%
-  }
 </style>
