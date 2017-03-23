@@ -16,32 +16,37 @@ module.exports = {
   },
   // resolve TypeScript and Vue file
   resolve: {
-    extensions: ['','ts', '.vue', '.js'],
+    extensions: ['', 'ts', '.vue', '.js'],
     alias: {
       'vue$': 'vue/dist/vue.common.js' // 'vue/dist/vue.common.js' for webpack 1
     }
   },
 
   module: {
-     loaders: [
-          { test: /\.vue$/, loader: 'vue' },
-          { test: /\.ts$/, loader: 'vue-ts' },
-          {test: /\.css$/,loader: 'vue-style-loader!css-loader'},
-          { test: /\.less$/, loader: "vue-style-loader!css-loader!less-loader" },
-          { test: /(jpg|png)$/, loader: "file-loader?name=[name].[ext]?[hash]" },
+    loaders: [
+      { test: /\.vue$/, loader: 'vue' },
+      { test: /\.ts$/, loader: 'vue-ts' },
+      { test: /\.css$/, loader: 'vue-style-loader!css-loader' },
+      { test: /\.less$/, loader: "vue-style-loader!css-loader!less-loader" },
+      {
+        test: /\.scss$/,
+        loaders: ["style-loader", "css-loader", "sass-loader"]
+      },
+      { test: /(jpg|png)$/, loader: "file-loader?name=[name].[ext]?[hash]" },
 
-          { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" },
-          { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" }, 
-          { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" },
-          { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file" },
-          { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml" }
-      ],
+      { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" },
+      { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/font-woff" },
+      { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream" },
+      { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file" },
+      { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml" }
+    ],
   },
   vue: {
     // instruct vue-loader to load TypeScript
-    loaders: { 
-      js: 'vue-ts-loader', 
+    loaders: {
+      js: 'vue-ts-loader',
       less: 'css!less',
+      scss: 'css!sass',
       ts: 'vue-ts-loader'
     },
     // make TS' generated code cooperate with vue-loader
@@ -78,7 +83,7 @@ if (process.env.NODE_ENV === 'production') {
         warnings: false
       }
     }),
-     new HtmlWebpackPlugin({
+    new HtmlWebpackPlugin({
       template: 'index.html',
       inject: true,
       minify: {
@@ -95,14 +100,14 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 if (process.env.NODE_ENV === 'development') {
-  
+
   module.exports.plugins = (module.exports.plugins || []).concat([
     // https://github.com/glenjamin/webpack-hot-middleware#installation--usage
     // OccurenceOrderPlugin is needed for webpack 1.x only
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-  
+
     new HtmlWebpackPlugin({
       template: 'index.html',
       inject: true,

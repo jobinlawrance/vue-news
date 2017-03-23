@@ -1,24 +1,45 @@
 <template>
-    <div id="source-selection">
-        <md-whiteframe id="card" md-elevation="4">
-            <div class="field-group">
-                <h2>
-                    <md-icon>list</md-icon>
-                    </span>&nbsp;News List</h2>
+    <section class="section">
+        <div class="container">
+            <div class="heading">
+                <h1 class="title has-text-centered">News</h1>
 
-                <md-input-container>
-                    <label for="news_source">News Source</label>
-                    <md-select name="news_source" id="news_source" v-model="selectedId" v-on:change="sourceChanged">
-                        <md-option v-for="source in sources" :key="source.id" v-bind:value="source.id">{{source.name}}</md-option>
-                    </md-select>
-                </md-input-container>
-                <div v-if="source">
-                    <h6>{{source.description}}</h6>
-                    <a v-bind:href="source.url" class="" target="_blank">Go To {{source.name}} Website</a>
+                <div class="columns">
+                    <div class="column is-half">
+                        <div class="field">
+                            <label class="label">Select a source</label>
+                            <p class="control">
+                                <span class="select is-medium">
+                        <select name="news_source" id="news_source" v-model="selectedId" v-on:change="sourceChanged">
+                            <option v-for="source in sources" :key="source.id" v-bind:value="source.id">{{source.name}}</option>
+                        </select>
+                        </span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="box" v-if="source">
+                            <article class="media">
+                                <div class="media-left">
+                                    <figure class="image is-64x64">
+                                        <img v-bind:src="source.urlsToLogos.small" alt="Image">
+                                    </figure>
+                                </div>
+                                <div class="media-content">
+                                    <div class="content">
+                                        <p>
+                                            <strong>{{ source.name }}</strong> 
+                                            <br> {{source.description}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </md-whiteframe>
-    </div>
+        </div>
+    </section>
 </template>
 
 <script>
@@ -57,7 +78,7 @@
         }
 
         sourceChanged() {
-            
+
             for (var i = 0; i < this.sources.length; i++) {
                 if (this.sources[i].id == this.selectedId) {
                     this.source = this.sources[i];
@@ -72,14 +93,8 @@
     export default SourceSelection
 
 </script>
-
 <style scoped>
-    .field-group {
-        width: 25%;
-        text-align: center;
-    }
-    
-    #card {
-        padding: 1%;
+    p{
+        text-transform: none;
     }
 </style>
