@@ -1,15 +1,17 @@
 <template>
 <div id="app">
   <SourceSelection v-on:sourceChanged="sourceChanged"></SourceSelection>
+  <NewsComponent v-bind:source="sourceId"></NewsComponent>
 </div>
 </template>
 
 <script>
 import { Vue, Component, Data } from 'av-ts'
 import SourceSelection from './components/sourceselection.vue'
+import NewsComponent from './components/newscomponent.vue'
 
 @Component({
-  components: {SourceSelection} 
+  components: {SourceSelection,NewsComponent}
 })
 class App extends Vue {
 
